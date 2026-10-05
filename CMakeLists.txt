@@ -11,6 +11,7 @@ qt_add_executable(Notification_SMS_Forwarder
     widget.cpp
     widget.h
     widget.ui
+    NotificationListener.java
 )
 
 target_link_libraries(Notification_SMS_Forwarder
