@@ -11,8 +11,10 @@ qt_add_executable(Notification_SMS_Forwarder
     widget.cpp
     widget.h
     widget.ui
-    NotificationListener.java
 )
+
+set_target_properties(Notification_SMS_Forwarder PROPERTIES
+   QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
 
 target_link_libraries(Notification_SMS_Forwarder
     PRIVATE
