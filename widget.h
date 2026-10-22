@@ -17,7 +17,13 @@ public:
     explicit Widget(QWidget *parent = nullptr);
     ~Widget() override;
 
+public:
+    static void listnerConnected() {
+
+    }
+
 private:
     Ui::Widget *ui;
+    static Widget *widgetInstance;
 };
 #endif // WIDGET_H
