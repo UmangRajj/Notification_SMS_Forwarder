@@ -2,7 +2,7 @@ package notifListen;
 
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
-import android.app.notification;
+import android.app.Notification;
 
 
 public class NotificationListener extends NotificationListenerService
@@ -27,7 +27,8 @@ public class NotificationListener extends NotificationListenerService
     public void onNotificationPosted(StatusBarNotification sbn, NotificationListenerService.RankingMap rank)
     {
         super.onNotificationPosted(sbn, rank);
-        notificationReceived(sbn.getPackageName(), sbn.getNotification().extras.get());
+        notificationReceived(sbn.getPackageName(), sbn.getNotification().extras.getCharSequence(Notification.EXTRA_TEXT).toString()
+                             , sbn.getPostTime());
     }
 
 
