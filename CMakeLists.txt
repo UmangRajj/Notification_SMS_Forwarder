@@ -1,25 +1,52 @@
 cmake_minimum_required(VERSION 3.19)
 project(Notification_SMS_Forwarder LANGUAGES CXX)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Quick)
 
 qt_standard_project_setup()
 
 qt_add_executable(Notification_SMS_Forwarder
     WIN32 MACOSX_BUNDLE
     main.cpp
-    widget.cpp
-    widget.h
-    widget.ui
 )
 
-set_target_properties(Notification_SMS_Forwarder PROPERTIES
-   QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+set_source_files_properties(Theme.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+
+if (ANDROID)
+    qt_add_qml_module(Notification_SMS_Forwarder
+        URI SMSForwarder
+        QML_FILES
+            Main.qml
+            PageButton.qml
+            Theme.qml
+            Pages/ServicePage.qml
+            Pages/SettingsPage.qml
+            Pages/SmsPage.qml
+        SOURCES
+            ServiceManager.cpp
+            ServiceManager.h
+
+    )
+    set_target_properties(Notification_SMS_Forwarder PROPERTIES
+       QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+else()
+    qt_add_qml_module(Notification_SMS_Forwarder
+        URI SMSForwarder
+        QML_FILES
+            Main.qml
+            PageButton.qml
+            Theme.qml
+            Pages/ServicePage.qml
+            Pages/SettingsPage.qml
+            Pages/SmsPage.qml
+    )
+endif()
+
 
 target_link_libraries(Notification_SMS_Forwarder
     PRIVATE
         Qt::Core
-        Qt::Widgets
+        Qt6::Quick
 )
 
 install(TARGETS Notification_SMS_Forwarder

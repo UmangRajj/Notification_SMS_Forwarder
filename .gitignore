@@ -40,6 +40,7 @@ Thumbs.db
 *.pro.user*
 *.qbs.user*
 CMakeLists.txt.user*
+*.autosave
 
 # xemacs temporary files
 *.flc
@@ -85,3 +86,10 @@ CMakeLists.txt.user*
 
 # Android files with no use
 workspace/
+
+# No hidden files, except the necessary
+.*
+
+!.gitignore
+!.gitattributes
+!.github/

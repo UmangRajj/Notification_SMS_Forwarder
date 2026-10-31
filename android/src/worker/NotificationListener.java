@@ -1,15 +1,14 @@
-package notifListen;
+package worker;
 
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.app.Notification;
 
-
 public class NotificationListener extends NotificationListenerService
 {
     public native void listenerConnected();
     public native void listenerDisconnected();
-    public native void notificationReceived(String pkg, String notification, long time);
+    public native void notificationReceived(String title, String notification, long time);
 
     @Override
     public void onListenerConnected()
@@ -27,9 +26,15 @@ public class NotificationListener extends NotificationListenerService
     public void onNotificationPosted(StatusBarNotification sbn, NotificationListenerService.RankingMap rank)
     {
         super.onNotificationPosted(sbn, rank);
-        notificationReceived(sbn.getPackageName(), sbn.getNotification().extras.getCharSequence(Notification.EXTRA_TEXT).toString()
-                             , sbn.getPostTime());
+        notificationReceived(sbn.getNotification().extras.getCharSequence(Notification.EXTRA_TITLE).toString(),
+                             sbn.getNotification().extras.getCharSequence(Notification.EXTRA_TEXT).toString(),
+                             sbn.getPostTime());
     }
+}
 
+// Things that are too big to be done in cpp
+// will be done by single java call to this class
+public class Agent
+{
 
 }
